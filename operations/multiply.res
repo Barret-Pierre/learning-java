@@ -1,0 +1,8 @@
+2
+6
+ERROR
+0
+0
+ERROR
+ERROR
+ERROR

@@ -27,24 +27,20 @@ public class Calculator {
     public static void processOperationFile(Path path) {
         Path resultFilePath = createResultFilePath(path);
         deleteFileIfExist(resultFilePath);
-        try (Scanner obj = new Scanner(path)) {
-            while (obj.hasNextLine()) {
-                String[] lineArgs = lineToArgsArray(obj.nextLine());
-                try {
-                    if (verifyArgs(lineArgs)) {
-                        Integer number_1 = Integer.parseInt(lineArgs[0]);
-                        Integer number_2 = Integer.parseInt(lineArgs[1]);
-                        String operator = lineArgs[2];
+        try (Scanner scanner = new Scanner(path)) {
+            while (scanner.hasNextLine()) {
+                String[] lineArgs = scanner.nextLine().split(" ");
+                String result = "ERROR\n";
 
-                        String resultToString = calculateResult(number_1, number_2, operator) + "\n";
-                        writeLineInFile(resultFilePath.toString(), resultToString);
-                    } else {
-                        String error = "ERROR\n";
-                        writeLineInFile(resultFilePath.toString(), error);
-                    }
-                } catch (Exception e) {
-                    System.err.println(e.getMessage());
+                if (verifyArgs(lineArgs)) {
+                    Integer number_1 = Integer.parseInt(lineArgs[0]);
+                    Integer number_2 = Integer.parseInt(lineArgs[1]);
+                    String operator = lineArgs[2];
+
+                    result = calculateResult(number_1, number_2, operator) + "\n";
                 }
+
+                writeLineInFile(resultFilePath.toString(), result);
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());
