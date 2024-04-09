@@ -77,10 +77,6 @@ public class Calculator {
         }
     }
 
-    public static String[] lineToArgsArray(String line) {
-        return line.split(" ");
-    }
-
     public static void writeLineInFile(String filePath, String lineToWrite) {
         try (FileWriter myWriter = new FileWriter(filePath, true)) {
             myWriter.write(lineToWrite);
