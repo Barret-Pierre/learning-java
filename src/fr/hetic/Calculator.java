@@ -11,12 +11,17 @@ import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class Calculator {
-    private static final String OPERATIONS_DIRECTORY = "./operations/";
     private static final String INPUT_FILE_EXTENSION = ".op";
     private static final String RESULT_FILE_EXTENSION = ".res";
     private static final List<String> SUPPORTED_OPERATORS = Arrays.asList("+", "-", "*");
 
     public static void main(String[] args) {
+        verifyDirectoryArgs(args);
+
+        String OPERATIONS_DIRECTORY = args[0];
+
+        isDirectoryExist(OPERATIONS_DIRECTORY);
+
         try (Stream<Path> paths = Files.walk(Paths.get(OPERATIONS_DIRECTORY))) {
             paths.filter(path -> Files.isRegularFile(path) && path.toString().endsWith(INPUT_FILE_EXTENSION)).forEach(Calculator::processOperationFile);
         } catch (IOException e) {
@@ -24,7 +29,24 @@ public class Calculator {
         }
     }
 
+    public static void isDirectoryExist(String directoryPathString) {
+        Path directoryPath = Paths.get(directoryPathString);
+        if (!Files.exists(directoryPath) || !Files.isDirectory(directoryPath)) {
+            System.err.println("Directory path doesn't exist or invalid must be absolute");
+            System.exit(1);
+        }
+
+    }
+
+    public static void verifyDirectoryArgs(String[] args) {
+        if (args.length != 1) {
+            System.err.println("Number of directory argument passed is incorrect");
+            System.exit(1);
+        }
+    }
+
     public static void processOperationFile(Path path) {
+        System.out.println(path);
         Path resultFilePath = createResultFilePath(path);
         deleteFileIfExist(resultFilePath);
         try (Scanner scanner = new Scanner(path)) {
@@ -32,7 +54,7 @@ public class Calculator {
                 String[] lineArgs = scanner.nextLine().split(" ");
                 String result = "ERROR\n";
 
-                if (verifyArgs(lineArgs)) {
+                if (verifyCalculateArgs(lineArgs)) {
                     Integer number_1 = Integer.parseInt(lineArgs[0]);
                     Integer number_2 = Integer.parseInt(lineArgs[1]);
                     String operator = lineArgs[2];
@@ -57,7 +79,7 @@ public class Calculator {
         };
     }
 
-    public static Boolean verifyArgs(String[] args) {
+    public static Boolean verifyCalculateArgs(String[] args) {
         try {
             if (args.length != 3) {
                 throw new Exception("Number of args incorrect");
@@ -86,8 +108,9 @@ public class Calculator {
     }
 
     private static Path createResultFilePath(Path inputFilePath) {
-        String fileName = inputFilePath.getFileName().toString();
-        return Path.of(OPERATIONS_DIRECTORY + fileName.replace(INPUT_FILE_EXTENSION, RESULT_FILE_EXTENSION));
+        String inputPathString = inputFilePath.toString();
+        System.out.println(inputPathString);
+        return Path.of(inputPathString.replace(INPUT_FILE_EXTENSION, RESULT_FILE_EXTENSION));
     }
 
     public static void deleteFileIfExist(Path filePath) {
