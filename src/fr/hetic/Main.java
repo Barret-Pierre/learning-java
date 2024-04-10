@@ -19,15 +19,13 @@ public class Main {
 
         directoryUtils.isDirectoryExist(OPERATIONS_DIRECTORY);
 
-        List<Path> paths = fileUtils.getFilesByExtensionInDirectory(OPERATIONS_DIRECTORY);
-
-        for (Path path: paths) {
+        fileUtils.getFilesByExtensionInDirectory(OPERATIONS_DIRECTORY).forEach(path-> {
             List<String> contentFile = fileUtils.getContentOfFile(path);
             Path resultFilePath = fileUtils.createResultFilePath(path);
             fileUtils.deleteFileIfExist(resultFilePath);
             ProcessOperation processOperation = new ProcessOperation(calculator, fileUtils, resultFilePath.toString());
             List<String> resultLines = processOperation.getResultOfContentFile(contentFile);
             processOperation.createResultFile(resultLines);
-        }
+        });
     }
 }
