@@ -7,6 +7,7 @@ import fr.hetic.models.Line;
 import fr.hetic.statements.FileStatement;
 import fr.hetic.writers.WriterResultFileStrategy;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.sql.*;
 import java.util.List;
@@ -16,7 +17,7 @@ public class Main {
     private static final String RESULT_FILE_EXTENSION = ".res";
     private static final String OUTPUT_DIRECTORY = "./outputs/";
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
 
         DirectoryUtils directoryUtils = new DirectoryUtils();
         Calculator calculator = new Calculator();
@@ -50,6 +51,7 @@ public class Main {
             List<Line> lines = file.getLines();
             Path resultFilePath = fileUtils.createResultFilePathWithFileName(file.getFileName());
             fileUtils.deleteFileIfExist(resultFilePath);
+            fileUtils.createResultFileAndDirectory(resultFilePath);
             List<String> resultLines = processOperation.getResultsOfData(lines);
             processOperation.createResultFile(resultLines, resultFilePath);
         }

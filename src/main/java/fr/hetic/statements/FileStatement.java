@@ -30,8 +30,7 @@ public class FileStatement {
                     int param1 = resultSet.getInt("PARAM1");
                     int param2 = resultSet.getInt("PARAM2");
                     String operator = resultSet.getString("OPERATEUR");
-                    String fileName = resultSet.getString("NOM");
-
+                    String fileName = resultSet.getString("NOM").trim();
 
                     Line line = new Line(param1, param2, operator);
                     long isExist = data.stream().filter(fileData -> Objects.equals(fileData.getFileName(), fileName)).count();

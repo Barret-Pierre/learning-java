@@ -1,5 +1,6 @@
 package fr.hetic;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,9 +30,20 @@ public class FileUtils {
         return Path.of(inputPathString.replace(INPUT_FILE_EXTENSION, RESULT_FILE_EXTENSION));
     }
 
-    public Path createResultFilePathWithFileName(String fileName) {
-        return Path.of(OUTPUT_DIRECTORY.concat(fileName).concat(RESULT_FILE_EXTENSION));
+    public Path createResultFilePathWithFileName(String fileName) throws IOException {
+        return Path.of(OUTPUT_DIRECTORY + fileName + RESULT_FILE_EXTENSION);
     }
+
+    public void createResultFileAndDirectory(Path filePath) throws IOException {
+        Path outputDir = Paths.get(OUTPUT_DIRECTORY);
+        if (!Files.exists(outputDir)) {
+            Files.createDirectories(outputDir);
+        }
+
+        Files.createFile(filePath);
+    }
+
+
 
     public void deleteFileIfExist(Path filePath) {
         try {
