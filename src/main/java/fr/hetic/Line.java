@@ -1,5 +1,7 @@
 package fr.hetic;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,16 +14,16 @@ public class Line {
 
     public Line(String lineInput) {
         if(verifyLineInput(lineInput)) {
-            this.number_1 = Integer.parseInt(lineInput.split(" ")[0]);
-            this.number_2 = Integer.parseInt(lineInput.split(" ")[1]);
-            this.operator = lineInput.split(" ")[2];
+            this.number_1 = Integer.parseInt(lineInput.split(StringUtils.SPACE)[0]);
+            this.number_2 = Integer.parseInt(lineInput.split(StringUtils.SPACE)[1]);
+            this.operator = lineInput.split(StringUtils.SPACE)[2];
             this.isValid = true;
         }
     }
 
     private Boolean verifyLineInput(String lineInput) {
         try {
-            String[] args = lineInput.split(" ");
+            String[] args = lineInput.split(StringUtils.SPACE);
             if (args.length != 3) {
                 throw new Exception("Number of args incorrect");
             }

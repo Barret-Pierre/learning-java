@@ -1,5 +1,7 @@
 package fr.hetic;
 
+import fr.hetic.writers.WriterResultFileStrategy;
+
 import java.nio.file.Path;
 import java.util.List;
 

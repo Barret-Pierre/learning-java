@@ -1,0 +1,12 @@
+fr/hetic/FileUtils.class
+fr/hetic/DirectoryUtils.class
+fr/hetic/operations/AdditionStrategy.class
+fr/hetic/writers/WriterStrategy.class
+fr/hetic/writers/WriterResultFileStrategy.class
+fr/hetic/operations/SubtractionStrategy.class
+fr/hetic/operations/CalculateStrategy.class
+fr/hetic/Calculator.class
+fr/hetic/operations/MultiplicationStrategy.class
+fr/hetic/Line.class
+fr/hetic/ProcessOperation.class
+fr/hetic/Main.class

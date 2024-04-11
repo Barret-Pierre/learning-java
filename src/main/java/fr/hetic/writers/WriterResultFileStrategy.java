@@ -1,4 +1,4 @@
-package fr.hetic;
+package fr.hetic.writers;
 
 import java.io.FileWriter;
 import java.nio.file.Path;
