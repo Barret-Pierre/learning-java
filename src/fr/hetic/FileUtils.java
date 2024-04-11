@@ -22,14 +22,6 @@ public class FileUtils {
         this.INPUT_FILE_EXTENSION = inputFileExtension;
     }
 
-    public void writeLineInFile(String filePath, String lineToWrite) {
-        try (FileWriter myWriter = new FileWriter(filePath, true)) {
-            myWriter.write(lineToWrite);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public Path createResultFilePath(Path inputFilePath) {
         String inputPathString = inputFilePath.toString();
         return Path.of(inputPathString.replace(INPUT_FILE_EXTENSION, RESULT_FILE_EXTENSION));

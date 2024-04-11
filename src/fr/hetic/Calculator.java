@@ -5,8 +5,6 @@ import fr.hetic.operations.CalculateStrategy;
 import fr.hetic.operations.MultiplicationStrategy;
 import fr.hetic.operations.SubtractionStrategy;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 public class Calculator {
