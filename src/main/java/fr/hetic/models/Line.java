@@ -1,4 +1,4 @@
-package fr.hetic;
+package fr.hetic.models;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -12,11 +12,12 @@ public class Line {
     public String operator = null;
     public Boolean isValid = false;
 
-    public Line(String lineInput) {
+    public Line(Integer number_1, Integer number_2, String operator) {
+        String lineInput = String.format("%d %d %s", number_1, number_2, operator);
         if(verifyLineInput(lineInput)) {
-            this.number_1 = Integer.parseInt(lineInput.split(StringUtils.SPACE)[0]);
-            this.number_2 = Integer.parseInt(lineInput.split(StringUtils.SPACE)[1]);
-            this.operator = lineInput.split(StringUtils.SPACE)[2];
+            this.number_1 = number_1;
+            this.number_2 = number_2;
+            this.operator = operator;
             this.isValid = true;
         }
     }
@@ -32,14 +33,15 @@ public class Line {
                 throw new Exception("Operator not supported");
             }
 
-            Integer.parseInt(args[0]);
-            Integer.parseInt(args[1]);
-
             return true;
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return false;
         }
+    }
+
+    public String getArgumentsOfLine() {
+        return String.format("%d %d %s", number_1, number_2, operator);
     }
 
 }

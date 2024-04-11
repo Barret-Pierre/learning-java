@@ -1,5 +1,6 @@
 package fr.hetic;
 
+import fr.hetic.models.Line;
 import fr.hetic.writers.WriterStrategy;
 
 import java.nio.file.Path;
@@ -25,13 +26,12 @@ public class ProcessOperation {
         }
     }
 
-    public List<String> getResultsOfData(List<String> data) {
+    public List<String> getResultsOfData(List<Line> data) {
         List<String> resultLines = new ArrayList<>();
-        for (String line : data) {
-            Line lineInput = new Line(line);
+        for (Line line : data) {
             String result = "ERROR\n";
-            if (lineInput.isValid) {
-                result = calculator.calculateResult(lineInput.number_1, lineInput.number_2, lineInput.operator) + "\n";
+            if (line.isValid) {
+                result = calculator.calculateResult(line.number_1, line.number_2, line.operator) + "\n";
             }
             resultLines.add(result);
         }

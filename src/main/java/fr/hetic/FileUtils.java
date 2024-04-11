@@ -15,16 +15,22 @@ public class FileUtils {
 
     private final String RESULT_FILE_EXTENSION;
     private final String INPUT_FILE_EXTENSION;
+    private final String OUTPUT_DIRECTORY;
 
 
-    public FileUtils(String resultFileExtension, String inputFileExtension) {
+    public FileUtils(String resultFileExtension, String inputFileExtension, String outputDirectory) {
         this.RESULT_FILE_EXTENSION = resultFileExtension;
         this.INPUT_FILE_EXTENSION = inputFileExtension;
+        this.OUTPUT_DIRECTORY = outputDirectory;
     }
 
-    public Path createResultFilePath(Path inputFilePath) {
+    public Path createResultFilePathWithPath(Path inputFilePath) {
         String inputPathString = inputFilePath.toString();
         return Path.of(inputPathString.replace(INPUT_FILE_EXTENSION, RESULT_FILE_EXTENSION));
+    }
+
+    public Path createResultFilePathWithFileName(String fileName) {
+        return Path.of(OUTPUT_DIRECTORY.concat(fileName).concat(RESULT_FILE_EXTENSION));
     }
 
     public void deleteFileIfExist(Path filePath) {
