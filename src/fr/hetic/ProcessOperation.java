@@ -1,5 +1,6 @@
 package fr.hetic;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,24 +8,24 @@ import java.util.List;
 public class ProcessOperation {
 
     private final Calculator calculator;
-    private final FileUtils fileUtils;
-    private final String resultFilePath;
+    private final WriterStrategy writer ;
 
-    public ProcessOperation(Calculator calculator, FileUtils fileUtils, String resultFilePath) {
+
+    public ProcessOperation(Calculator calculator, WriterStrategy writer) {
         this.calculator = calculator;
-        this.fileUtils = fileUtils;
-        this.resultFilePath = resultFilePath;
+        this.writer = writer;
+
     }
 
-    public void createResultFile(List<String> resultLines) {
+    public void createResultFile(List<String> resultLines, Path resultFilePath) {
         for (String result : resultLines) {
-            fileUtils.writeLineInFile(resultFilePath, result);
+            writer.writeLineInFile(resultFilePath, result);
         }
     }
 
-    public List<String> getResultOfContentFile(List<String> contentFile) {
+    public List<String> getResultsOfData(List<String> data) {
         List<String> resultLines = new ArrayList<>();
-        for (String line : contentFile) {
+        for (String line : data) {
             Line lineInput = new Line(line);
             String result = "ERROR\n";
             if (lineInput.isValid) {

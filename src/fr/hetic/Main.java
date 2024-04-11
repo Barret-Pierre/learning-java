@@ -12,6 +12,7 @@ public class Main {
         DirectoryUtils directoryUtils = new DirectoryUtils();
         Calculator calculator = new Calculator();
         FileUtils fileUtils = new FileUtils(RESULT_FILE_EXTENSION, INPUT_FILE_EXTENSION);
+        ProcessOperation processOperation = new ProcessOperation(calculator, new WriterResultFileStrategy());
 
         directoryUtils.verifyDirectoryArgs(args);
 
@@ -23,9 +24,8 @@ public class Main {
             List<String> contentFile = fileUtils.getContentOfFile(path);
             Path resultFilePath = fileUtils.createResultFilePath(path);
             fileUtils.deleteFileIfExist(resultFilePath);
-            ProcessOperation processOperation = new ProcessOperation(calculator, fileUtils, resultFilePath.toString());
-            List<String> resultLines = processOperation.getResultOfContentFile(contentFile);
-            processOperation.createResultFile(resultLines);
+            List<String> resultLines = processOperation.getResultsOfData(contentFile);
+            processOperation.createResultFile(resultLines, resultFilePath);
         });
     }
 }
