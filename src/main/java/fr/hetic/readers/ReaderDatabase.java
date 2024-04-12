@@ -19,7 +19,7 @@ public class ReaderDatabase implements ReaderStrategy{
     }
 
     @Override
-    public List<File> getFile() throws SQLException {
+    public List<File> getFile() {
         return fileStatement.getFilesWithLinesByType();
     }
 }

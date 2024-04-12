@@ -1,8 +1,9 @@
-package fr.hetic;
+package fr.hetic.processors;
 
+import fr.hetic.Calculator;
 import fr.hetic.models.Line;
+import fr.hetic.readers.ReaderStrategy;
 import fr.hetic.writers.WriterStrategy;
-import org.apache.commons.lang3.StringUtils;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -18,7 +19,6 @@ public class ProcessOperation {
     public ProcessOperation(Calculator calculator, WriterStrategy writer) {
         this.calculator = calculator;
         this.writer = writer;
-
     }
 
     public void createResultFile(List<String> resultLines, Path resultFilePath) {
@@ -38,22 +38,5 @@ public class ProcessOperation {
             resultLines.add(result);
         }
         return resultLines;
-    }
-
-    public List<Line> mapContentFileLines(List<String> contentFile) {
-        List<Line> lines = new ArrayList<>();
-        for (String contentLine : contentFile) {
-            if(Line.verifyLineInput(contentLine)) {
-                int number_1 = Integer.parseInt(contentLine.split(StringUtils.SPACE)[0]);
-                int number_2 = Integer.parseInt(contentLine.split(StringUtils.SPACE)[1]);
-                String operator = contentLine.split(StringUtils.SPACE)[2];
-                Line line = new Line(number_1, number_2, operator);
-                lines.add(line);
-            } else  {
-                Line line = new Line(null, null, null);
-                lines.add(line);
-            }
-        }
-        return lines;
     }
 }

@@ -30,20 +30,24 @@ public class FileUtils {
         return Path.of(inputPathString.replace(INPUT_FILE_EXTENSION, RESULT_FILE_EXTENSION));
     }
 
-    public Path createResultFilePathWithFileName(String fileName) throws IOException {
+    public Path createResultFilePathWithFileName(String fileName) {
         return Path.of(OUTPUT_DIRECTORY + fileName + RESULT_FILE_EXTENSION);
     }
 
-    public void createResultFileAndDirectory(Path filePath) throws IOException {
-        Path outputDir = Paths.get(OUTPUT_DIRECTORY);
-        if (!Files.exists(outputDir)) {
-            Files.createDirectories(outputDir);
+    public void createResultFileAndDirectory(Path filePath) {
+        try {
+            Path outputDir = Paths.get(OUTPUT_DIRECTORY);
+            if (!Files.exists(outputDir)) {
+                Files.createDirectories(outputDir);
+            }
+
+            Files.createFile(filePath);
+        } catch (IOException e) {
+            System.err.println("Error :" + e.getMessage());
+
         }
 
-        Files.createFile(filePath);
     }
-
-
 
     public void deleteFileIfExist(Path filePath) {
         try {
