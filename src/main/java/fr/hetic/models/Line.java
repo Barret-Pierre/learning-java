@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Line {
-    private final List<String> SUPPORTED_OPERATORS = Arrays.asList("+", "-", "*");
+    private static final List<String> SUPPORTED_OPERATORS = Arrays.asList("+", "-", "*");
     public Integer number_1 = null;
     public Integer number_2 = null;
     public String operator = null;
@@ -22,7 +22,7 @@ public class Line {
         }
     }
 
-    private Boolean verifyLineInput(String lineInput) {
+    public static Boolean verifyLineInput(String lineInput) {
         try {
             String[] args = lineInput.split(StringUtils.SPACE);
             if (args.length != 3) {
@@ -32,6 +32,9 @@ public class Line {
             if (!SUPPORTED_OPERATORS.contains(args[2])) {
                 throw new Exception("Operator not supported");
             }
+
+            Integer.parseInt(args[0]);
+            Integer.parseInt(args[1]);
 
             return true;
         } catch (Exception e) {

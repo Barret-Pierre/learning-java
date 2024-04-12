@@ -30,6 +30,4 @@ public class DatabaseManager {
             }
         }
     }
-
-    // Autres méthodes pour exécuter des requêtes, etc.
 }

@@ -24,6 +24,7 @@ public class FileStatement {
     public List<File> getFilesWithLinesByType() {
         List<File> data = new ArrayList<>();
         try (Statement stmt = connection.createStatement()) {
+            System.out.println("Connected");
             String selectSql = "SELECT * FROM LIGNE AS l INNER JOIN FICHIER AS f ON l.FICHIER_ID = f.ID WHERE f.TYPE='OP' ORDER BY f.NOM, l.POSITION ASC";
             try (ResultSet resultSet = stmt.executeQuery(selectSql)) {
                 while (resultSet.next()) {
@@ -46,11 +47,9 @@ public class FileStatement {
                         }
                     }
 
-
-                    //data.add(String.format("%d %d %s %s", param1, param2, operator, fileName));
                 }
             }
-            //databaseManager.closeConnection(connection);
+            databaseManager.closeConnection(connection);
             return data;
         } catch (SQLException e) {
             databaseManager.closeConnection(connection);
