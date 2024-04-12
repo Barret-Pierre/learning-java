@@ -3,9 +3,14 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!-- Charge les propriétés de application.properties -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:application.properties"/>
+    </bean>
+
     <!-- Bean for ReaderDirectory -->
     <bean id="readerDirectory" class="fr.hetic.readers.ReaderDirectory">
-        <constructor-arg value="./inputs"/>
+        <constructor-arg value="${data.directory}"/>
         <constructor-arg ref="fileUtils"/>
     </bean>
 
@@ -17,16 +22,16 @@
 
     <!-- Bean for FileUtils -->
     <bean id="fileUtils" class="fr.hetic.FileUtils">
-        <constructor-arg value=".res"/>
-        <constructor-arg value=".op"/>
-        <constructor-arg value="./outputs/"/>
+        <constructor-arg value="${data.output_extension}"/>
+        <constructor-arg value="${data.input_extension}"/>
+        <constructor-arg value="${data.outputs_directory}"/>
     </bean>
 
     <!-- Bean for DatabaseManager -->
     <bean id="databaseManager" class="fr.hetic.database.DatabaseManager">
-        <constructor-arg value="jdbc:postgresql://127.0.0.1:5432/TP"/>
-        <constructor-arg value="etudiant"/>
-        <constructor-arg value="MT4@hetic2324"/>
+        <constructor-arg value="${data.url_local}"/>
+        <constructor-arg value="${data.user}"/>
+        <constructor-arg value="${data.password}"/>
     </bean>
 
     <!-- Bean for FileStatement -->

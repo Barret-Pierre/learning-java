@@ -38,7 +38,6 @@ public class Main {
 
         } else if (Objects.equals(TYPE, "JDBC")) {
 
-            DatabaseManager databaseManager = context.getBean(DatabaseManager.class);
             ReaderDatabase reader = context.getBean(ReaderDatabase.class);
             DatabaseProcessOperation databaseProcessOperation = new DatabaseProcessOperation(calculator, new WriterResultFileStrategy(), reader, fileUtils);
             databaseProcessOperation.startProcess();
