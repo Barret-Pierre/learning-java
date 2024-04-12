@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 public class DirectoryUtils {
 
 
-    public void isDirectoryExist(String directoryPathString) {
+    public static void isDirectoryExist(String directoryPathString) {
         Path directoryPath = Paths.get(directoryPathString);
         if (!Files.exists(directoryPath) || !Files.isDirectory(directoryPath)) {
             System.err.println("Directory path doesn't exist or invalid must be absolute");
@@ -15,7 +15,7 @@ public class DirectoryUtils {
         }
     }
 
-    public void verifyDirectoryArgs(String[] args) {
+    public static void verifyDirectoryArgs(String[] args) {
         if (args.length != 1) {
             System.err.println("Number of directory argument passed is incorrect");
             System.exit(1);

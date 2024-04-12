@@ -15,6 +15,7 @@ public class FileStatement {
     private final Connection connection;
     private final DatabaseManager databaseManager;
 
+
     public FileStatement(DatabaseManager databaseManager) throws SQLException {
         this.connection = databaseManager.getConnection();
         this.databaseManager = databaseManager;
@@ -24,7 +25,6 @@ public class FileStatement {
     public List<File> getFilesWithLinesByType() {
         List<File> data = new ArrayList<>();
         try (Statement stmt = connection.createStatement()) {
-            System.out.println("Connected");
             String selectSql = "SELECT * FROM LIGNE AS l INNER JOIN FICHIER AS f ON l.FICHIER_ID = f.ID WHERE f.TYPE='OP' ORDER BY f.NOM, l.POSITION ASC";
             try (ResultSet resultSet = stmt.executeQuery(selectSql)) {
                 while (resultSet.next()) {
@@ -36,7 +36,7 @@ public class FileStatement {
                     Line line = new Line(param1, param2, operator);
                     long isExist = data.stream().filter(fileData -> Objects.equals(fileData.getFileName(), fileName)).count();
                     if(data.isEmpty() || isExist == 0) {
-                        File file = new File(fileName);
+                        File file = new File(fileName, null);
                         file.addLine(line);
                         data.add(file);
                     } else {

@@ -54,8 +54,6 @@ public class ProcessOperation {
                 lines.add(line);
             }
         }
-        System.out.println(lines);
-        System.out.println(lines);
         return lines;
     }
 }

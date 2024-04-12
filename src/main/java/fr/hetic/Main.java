@@ -4,6 +4,8 @@ package fr.hetic;
 import fr.hetic.database.DatabaseManager;
 import fr.hetic.models.File;
 import fr.hetic.models.Line;
+import fr.hetic.readers.ReaderDatabase;
+import fr.hetic.readers.ReaderDirectory;
 import fr.hetic.statements.FileStatement;
 import fr.hetic.writers.WriterResultFileStrategy;
 
@@ -24,32 +26,30 @@ public class Main {
         ProcessorStrategy processorStrategy = new ProcessorStrategy(args);
 
         if(Objects.equals(processorStrategy.TYPE, "FILE")) {
-            DirectoryUtils directoryUtils = new DirectoryUtils();
             Calculator calculator = new Calculator();
             FileUtils fileUtils = new FileUtils(RESULT_FILE_EXTENSION, INPUT_FILE_EXTENSION, OUTPUT_DIRECTORY);
             ProcessOperation processOperation = new ProcessOperation(calculator, new WriterResultFileStrategy());
 
             String OPERATIONS_DIRECTORY = processorStrategy.DIRECTORY;
 
-            directoryUtils.isDirectoryExist(OPERATIONS_DIRECTORY);
+            DirectoryUtils.isDirectoryExist(OPERATIONS_DIRECTORY);
 
-            fileUtils.getFilesByExtensionInDirectory(OPERATIONS_DIRECTORY).forEach(path-> {
-                List<String> contentFile = fileUtils.getContentOfFile(path);
-                List<Line> lines = processOperation.mapContentFileLines(contentFile);
-                Path resultFilePath = fileUtils.createResultFilePathWithPath(path);
+            List<File> files = new ReaderDirectory(OPERATIONS_DIRECTORY, fileUtils).getFile();
+
+            for(File file : files) {
+                Path resultFilePath = fileUtils.createResultFilePathWithPath(file.getPath());
                 fileUtils.deleteFileIfExist(resultFilePath);
-                List<String> resultLines = processOperation.getResultsOfData(lines);
+                List<String> resultLines = processOperation.getResultsOfData(file.getLines());
                 processOperation.createResultFile(resultLines, resultFilePath);
-            });
+            }
         } else if (Objects.equals(processorStrategy.TYPE, "JDBC")) {
             //String url = "jdbc:postgresql://SG-hetic-mt4-java-5275-pgsql-master.servers.mongodirector.com:5432/TP";
 
             Calculator calculator = new Calculator();
             FileUtils fileUtils = new FileUtils(RESULT_FILE_EXTENSION, INPUT_FILE_EXTENSION, OUTPUT_DIRECTORY);
             ProcessOperation processOperation = new ProcessOperation(calculator, new WriterResultFileStrategy());
-
             DatabaseManager databaseManager = new DatabaseManager(processorStrategy.HOST_DATABASE, processorStrategy.USER_DATABASE, processorStrategy.PASSWORD_DATABASE);
-            List<File> files = new FileStatement(databaseManager).getFilesWithLinesByType();
+            List<File> files = new ReaderDatabase(databaseManager, new FileStatement(databaseManager)).getFile();
             for(File file : files) {
                 List<Line> lines = file.getLines();
                 Path resultFilePath = fileUtils.createResultFilePathWithFileName(file.getFileName());
