@@ -16,7 +16,7 @@ public class FileStatement {
     private final DatabaseManager databaseManager;
 
 
-    public FileStatement(DatabaseManager databaseManager) throws SQLException {
+    public FileStatement(DatabaseManager databaseManager) {
         this.connection = databaseManager.getConnection();
         this.databaseManager = databaseManager;
 

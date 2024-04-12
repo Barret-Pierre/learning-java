@@ -2,9 +2,7 @@ package fr.hetic.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class DatabaseManager {
     private final String url;
@@ -17,8 +15,13 @@ public class DatabaseManager {
         this.password = password;
     }
 
-    public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url, user, password);
+    public Connection getConnection() {
+        try {
+            return DriverManager.getConnection(url, user, password);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     public void closeConnection(Connection connection) {

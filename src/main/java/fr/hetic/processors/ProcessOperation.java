@@ -34,7 +34,6 @@ public class ProcessOperation {
             if (line.isValid) {
                 result = calculator.calculateResult(line.number_1, line.number_2, line.operator) + "\n";
             }
-            System.out.println(result);
             resultLines.add(result);
         }
         return resultLines;
