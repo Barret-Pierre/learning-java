@@ -8,11 +8,17 @@ public class DirectoryUtils {
 
 
     public static void isDirectoryExist(String directoryPathString) {
-        Path directoryPath = Paths.get(directoryPathString);
-        if (!Files.exists(directoryPath) || !Files.isDirectory(directoryPath)) {
-            System.err.println("Directory path doesn't exist or invalid must be absolute");
+        try {
+            Path directoryPath = Paths.get(directoryPathString);
+            if (!Files.exists(directoryPath) || !Files.isDirectory(directoryPath)) {
+                throw new Exception("Directory path doesn't exist or invalid must be absolute");
+
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
             System.exit(1);
         }
+
     }
 
     public static void verifyDirectoryArgs(String[] args) {

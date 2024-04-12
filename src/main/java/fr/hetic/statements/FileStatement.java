@@ -19,7 +19,6 @@ public class FileStatement {
     public FileStatement(DatabaseManager databaseManager) {
         this.connection = databaseManager.getConnection();
         this.databaseManager = databaseManager;
-
     }
 
     public List<File> getFilesWithLinesByType() {
