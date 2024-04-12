@@ -5,15 +5,10 @@ import fr.hetic.processors.DatabaseProcessOperation;
 import fr.hetic.processors.DirectoryProcessOperation;
 import fr.hetic.readers.ReaderDatabase;
 import fr.hetic.readers.ReaderDirectory;
-import fr.hetic.statements.FileStatement;
 import fr.hetic.writers.WriterResultFileStrategy;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import javax.swing.*;
-import java.beans.BeanProperty;
-import java.beans.Beans;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Objects;
